@@ -25,3 +25,38 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## COMANDOS PARA ORGANIZAR O BACKEND
+dotnet new classlib -n ProEventos.Application
+dotnet new classlib -n ProEventos.Domain
+dotnet new classlib -n ProEventos.Persistence
+## CRIANDO sln PARA VISUAL STUDIO 201X
+dotnet new sln -n Prj-Eventos
+dotnet sln Prj-Eventos.sln add .\ProEventos.Application\
+dotnet sln Prj-Eventos.sln add .\ProEventos.Domain\  
+dotnet sln Prj-Eventos.sln add .\ProEventos.Persistence\
+dotnet sln Prj-Eventos.sln add .\ProEventos.API\  
+
+## REFERENCIANDO OS PROJETOS 
+Proeventos.API
+    dotnet add .\ProEventos.API\ProEventos.API.csproj reference .\ProEventos.Application\ProEventos.Application.csproj
+
+Agora Basta Copiar e Colar modificando os projetos que devem ter referencia
+    ProEventos.Application 
+    <ItemGroup>
+        <ProjectReference Include="..\ProEventos.Application\ProEventos.Application.csproj" />
+    </ItemGroup>
+    ProEventos.Persistence
+    <ItemGroup>
+        <ProjectReference Include="..\ProEventos.Domain\ProEventos.Domain.csproj" />
+    </ItemGroup>
+ProEventos.Domain não precisa de referencia
+
+## NA CRIAÇÃO DO DATACONTEXT NÃO ESQUECER DA REFERENCIA ENTRE A TABELA DE PALESTRANTE EVENDO
+public DbSet<PalestranteEvento> PalestrantesEventos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder){
+            modelBuilder.Entity<PalestranteEvento>()
+            .HasKey(PE => new {PE.EventoId,PE.PalastranteId});
+        }
+        
