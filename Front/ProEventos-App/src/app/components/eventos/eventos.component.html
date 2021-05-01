@@ -1,4 +1,5 @@
-<h1>Eventos</h1>
+<app-titulo [titulo]="'Evento'"></app-titulo>
+
 <hr>
 
 <div class="form-inline">
@@ -36,12 +37,12 @@
   <tbody *ngIf="eventos && eventos.length">
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
-          <img [collapse]="exibirImg"
-               [isAnimated]="true"
-               src="/assets/{{evento.imagemURL}}"
-              [style.width.px]="widthImg"
-             [style.margin.px]="marginImg"
-          >
+        <img [collapse]= "exibirImg"
+            [isAnimated]= "true"
+            src= "/assets/{{evento.imagemURL}}"
+            [style.width.px]= "widthImg"
+            [style.margin.px]= "marginImg"
+        >
       </td>
       <th>{{evento.id}}</th>
       <td>{{evento.local}}</td>

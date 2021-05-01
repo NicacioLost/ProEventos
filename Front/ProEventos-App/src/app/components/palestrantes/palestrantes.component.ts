@@ -10,7 +10,7 @@ export class PalestrantesComponent implements OnInit {
   public palestrante: any = {
     Tema: 'Angular',
     Local: 'Belo Horizonte'
-  }
+  };
 
 
   constructor() { }

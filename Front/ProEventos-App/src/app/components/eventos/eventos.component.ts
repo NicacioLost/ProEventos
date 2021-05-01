@@ -3,9 +3,9 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Evento } from '../models/Evento';
+import { Evento } from '../../models/Evento';
 
-import { EventoService } from '../services/evento.service';
+import { EventoService } from '../../services/evento.service';
 
 @Component({
   selector: 'app-eventos',
@@ -52,7 +52,7 @@ export class EventosComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-      this.spinner.show()
+      this.spinner.show(),
       this.getEventos();
           /** spinner starts on init */
       // setTimeout(() => {
@@ -75,7 +75,7 @@ export class EventosComponent implements OnInit {
         error: (error: any)  => {
           console.log(error),
           this.spinner.hide(),
-          this.toastr.error('Erro ao Carregar os Eventos', 'Erro!')
+          this.toastr.error('Erro ao Carregar os Eventos', 'Erro!');
         },
         complete: () => this.spinner.hide()
       });
