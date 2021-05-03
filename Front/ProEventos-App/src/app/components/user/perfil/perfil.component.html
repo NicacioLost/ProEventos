@@ -1,7 +1,6 @@
 <app-titulo [titulo]="'Perfil'"></app-titulo>
 <div class="card rounded shadow-sm">
-
-<form>
+<form [formGroup]= "form">
 	<div class="row p-3">
 		<div class="col-lg-3 pt-1">
 			<div class="card mb-3">
@@ -9,27 +8,26 @@
 				<div class="d-flex align-self-center pt-3">
 					<a>
 						<img
-						src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
+						src="https://avatars.githubusercontent.com/u/56233326?v=4"
 						name="aboutme" width="120" height="120" class="rounded-circle">
 					</a>
 				</div>
 				<div class="card-body">
-					<div class="h4 text-center mb-3">@UserName</div>
-					<div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
+					<div class="h4 text-center mb-3">@NicacioLost</div>
+					<div class="h7 text-bold pb-1"><b>Nome:</b> Anderson Nicacio</div>
 					<div class="h7">
-						Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-						etc.
+						Desenvolvedor de aplicações web, JavaScript, Vuejs, C#, VB, Delphi, SQL Server,  Java, etc.
 					</div>
 				</div>
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">
 						<div class="row">
 							<div class="col-6 text-center border-right">
-								<div class="h5">1342</div>
+								<div class="h5">250</div>
 								<div class="h6 text-muted">Eventos Ministrados</div>
 							</div>
 							<div class="col-6 text-center">
-								<div class="h5">1342</div>
+								<div class="h5">800</div>
 								<div class="h6 text-muted">Eventos Participados</div>
 							</div>
 						</div>
@@ -57,25 +55,40 @@
 						<option value="Senhorita">Pós Doc</option>
 					</select>
 				</div>
-				<div class="form-group col-sm-5">
-					<label>Primeiro Nome</label>
-					<input type="text" class="form-control"/>
-
-				</div>
-				<div class="form-group col-sm-5">
-					<label>Último nome</label>
-					<input type="text" class="form-control"/>
-
-				</div>
+        <div class="form-group col-sm-5">
+          <label>Primeiro Nome</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': f.nome.errors && f.nome!.touched}"
+          formControlName="nome" placeholder="Insira o Primeiro Nome" />
+          <div *ngIf="f.nome.errors?.required && f.nome.touched" class="invalid-feedback">Nome é Obrigatorio</div>
+          <div *ngIf="f.nome.errors?.minlength && f.nome.touched" class="invalid-feedback">Nome deve conter no minimo 3 caracteres</div>
+          <div *ngIf="f.nome.errors?.maxlength && f.nome.touched" class="invalid-feedback">Nome deve conter no maximo 50 caracteres</div>
+        </div>
+        <div class="form-group col-sm-5">
+          <label>Sobre Nome</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': f.sobreNome.errors && f.sobreNome.touched}"
+          formControlName="sobreNome" placeholder="Insira o Sobre Nome" />
+          <div *ngIf="f.sobreNome.errors?.required && f.sobreNome.touched" class="invalid-feedback">Sobre Nome é Obrigatorio</div>
+          <div *ngIf="f.sobreNome.errors?.minlength && f.sobreNome.touched" class="invalid-feedback">Sobre Nome deve conter no minimo 3 caracteres</div>
+          <div *ngIf="f.sobreNome.errors?.maxlength && f.sobreNome.touched" class="invalid-feedback">Sobre Nome deve conter no maximo 50 caracteres</div>
+        </div>
 			</div>
-			<div class="form-row">
+      <div class="form-row">
 				<div class="form-group col-sm-5">
-					<label>E-mail</label>
-					<input type="text" class="form-control" />
+          <label for="">Email:</label>
+          <input class="form-control"
+          [ngClass]="{'is-invalid': f.email.errors && f.email.touched}"
+          formControlName="email" type="text" placeholder="Insira o email Completo" />
+          <div *ngIf="f.email.errors?.required  && f.email.touched" class="invalid-feedback">Email é Obrigatorio</div>
+          <div *ngIf="f.email.errors?.email  && f.email.touched" class="invalid-feedback">Formato de email invalido</div>
 				</div>
 				<div class="form-group col-sm-4">
-					<label>Telefone</label>
-					<input type="text" class="form-control" />
+          <label>Telefone</label>
+          <input type="number" class="form-control"
+          [ngClass]="{'is-invalid': f.telefone.errors && f.telefone.touched}"
+          formControlName="telefone" placeholder="(000) 90000-0000">
+          <div *ngIf="f.telefone.errors?.required  && f.telefone.touched" class="invalid-feedback">Telefone é Obrigatorio</div>
 				</div>
 				<div class="form-group col-sm">
 					<label>Função</label>
@@ -87,8 +100,12 @@
 				</div>
 				<form-group class="col-12">
 					<label>Descrição</label>
-					<input type="text" class="form-control" />
-				</form-group>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid': f.descricao.errors && f.descricao.touched}"
+          formControlName="descricao" placeholder="Insira uma Descrição" />
+          <div *ngIf="f.descricao.errors?.required && f.descricao.touched" class="invalid-feedback">Descrição é Obrigatorio</div>
+          <div *ngIf="f.descricao.errors?.maxlength && f.descricao.touched" class="invalid-feedback">Descricao deve conter no maximo 50 caracteres</div>
+      </form-group>
 			</div>
 			<div>
 				<h3 class="pt-3 border-bottom">Mudar Senha</h3>
@@ -96,22 +113,34 @@
 			</div>
 			<div class="form-row">
 				<div class="form-group col-sm">
-					<label>Senha</label>
-					<input type="password" class="form-control" />
-				</div>
+          <label for="">Senha:</label>
+          <input class="form-control"
+          [ngClass]="{'is-invalid': f.senha.errors && f.senha.touched}"
+          formControlName="senha" type="password" placeholder="Digite uma Senha" />
+          <div *ngIf="f.senha.errors?.required  && f.senha.touched" class="invalid-feedback">Senha é Obrigatorio</div>
+          <div *ngIf="f.senha.errors?.minlength && f.senha.touched" class="invalid-feedback">Senha deve conter no minimo 6 caracteres</div>
+          <div *ngIf="f.senha.errors?.maxlength && f.senha.touched" class="invalid-feedback">Senha deve conter no maximo 16 caracteres</div>
+      </div>
 				<div class="form-group col-sm">
-					<label>Confirmar Senha</label>
-					<input type="password" class="form-control" />
-				</div>
+          <label for="">Confirmar Senha:</label>
+          <input class="form-control"
+          [ngClass]="{'is-invalid': f.confirmaSenha.errors && f.confirmaSenha.touched}"
+          formControlName="confirmaSenha" type="password" placeholder="Confirme a Senha" />
+          <div *ngIf="f.confirmaSenha.errors?.required  && f.confirmaSenha.touched" class="invalid-feedback">Confirma Senha é Obrigatorio</div>
+          <div *ngIf="f.confirmaSenha.errors?.minlength && f.confirmaSenha.touched" class="invalid-feedback">Confirma Senha deve conter no minimo 6 caracteres</div>
+          <div *ngIf="f.confirmaSenha.errors?.maxlength && f.confirmaSenha.touched" class="invalid-feedback">Confirma Senha deve conter no maximo 16 caracteres</div>
+          <div *ngIf="f.confirmaSenha.errors?.mustMatch && f.confirmaSenha.touched" class="invalid-feedback">Confirma deve ser igual a Senha. Redigite!</div>
+      </div>
 			</div>
 		</div>
 	</div>
 	<div class="card-footer">
 		<div class="d-flex">
-			<button class="btn btn-outline-secondary mr-auto border">
+			<button class="btn btn-outline-secondary mr-auto border"
+      (click)="resetForm($event)">
 				Cancelar Alteração
 			</button>
-			<button class="btn btn-success">
+			<button class="btn btn-success"  [disabled]= "!form.valid">
 				<!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
 				Salvar Alteração
 			</button>
