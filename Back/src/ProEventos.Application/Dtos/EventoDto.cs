@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -19,7 +20,8 @@ namespace ProEventos.Application.Dtos
         [Range(1,100000, ErrorMessage = "O campo {0} não poder ser menor que 1 e maior que 100.000")]
         public int QtdePessoas { get; set; }
 
-        [RegularExpression(@".*\\.(gif|jpe?g|bmp|png)$",ErrorMessage = "Não é uma imagem válida. (gif, jpg, jpeg, bmp, ou png)")]
+
+        [RegularExpression(@".*\.(gif|jpe?g|bmp|png)$", ErrorMessage = "Não é uma imagem válida. (gif, jpg, jpeg, bmp ou png)")]
         public string ImagemURL { get; set; }
         
         [Required(ErrorMessage = "O campo {0} é obrigatório")]        

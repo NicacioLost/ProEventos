@@ -17,7 +17,7 @@ export class EventoListaComponent implements OnInit {
 
   public eventos: Evento[] = [];
   public eventosFiltrados: Evento[] = [];
-
+  public eventoId = 0;
   public widthImg = 100;
   public marginImg = 2;
   public exibirImg = true;
@@ -51,7 +51,7 @@ export class EventoListaComponent implements OnInit {
 
     public ngOnInit(): void {
       this.spinner.show(),
-      this.getEventos();
+      this.carregarEventos();
           /** spinner starts on init */
       // setTimeout(() => {
       //   /** spinner ends after 5 seconds */
@@ -62,7 +62,7 @@ export class EventoListaComponent implements OnInit {
     public alterarImagem(): void {
       this.exibirImg = !this.exibirImg;
     }
-    public getEventos(): void {
+    public carregarEventos(): void {
 
       // tslint:disable-next-line: deprecation
       this.eventoService.getEventos().subscribe({
@@ -79,13 +79,32 @@ export class EventoListaComponent implements OnInit {
       });
   }
 
-    openModal(template: TemplateRef<any>): void {
+    openModal(event: any,  template: TemplateRef<any>, eventoId: number): void {
+      event.stopPropagation();
+      this.eventoId = eventoId;
+
       this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
     }
 
     confirm(): void {
       this.modalRef.hide();
-      this.toastr.success('O Evento foi deletado com sucesso', 'Deletado!');
+      this.spinner.show();
+
+      this.eventoService.deleteEvento(this.eventoId).subscribe(
+        (result: any) => {
+          if (result.message === 'Deletado'){
+            this.toastr.success('O Evento foi deletado com sucesso', 'Deletado!');
+            this.spinner.hide();
+            this.carregarEventos();
+          }
+        },
+        (error: any) => {
+          this.toastr.error(`Erro ao tentar deletar o evento ${this.eventoId}`, 'Erro!');
+          this.spinner.hide();
+          console.error(error);
+        },
+        () => this.spinner.hide(),
+      );
     }
 
     decline(): void {
@@ -94,4 +113,5 @@ export class EventoListaComponent implements OnInit {
     detalheEvento(id: number): void {
       this.router.navigate([`eventos/detalhe/${id}`]);
     }
+
 }

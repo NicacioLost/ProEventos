@@ -1,10 +1,8 @@
+import { DateTimeFormatPipe } from './../helpers/DateTimeFormat.pipe';
 
-import { DateTimeFormatPipe } from './DateTimeFormat.pipe';
-
-describe('Pipe: DateTimeFormatPipe', () => {
+describe('Pipe: DateTimeFormat', () => {
   it('create an instance', () => {
-    let pipe = new DateTimeFormatPipe();
+    const pipe = new DateTimeFormatPipe('pt-br');
     expect(pipe).toBeTruthy();
-
   });
 });
